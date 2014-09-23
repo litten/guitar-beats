@@ -307,6 +307,9 @@ input[type=button] {
 .rotate-315 {
   -webkit-transform: rotate(315deg);
 }
+.bg-orange {
+  background: rgba(254, 93, 2, 0.3);
+}
 body {
   background: #3b3d3c;
   color: #fff;
@@ -352,7 +355,7 @@ body .ctn .beat-part .circle-out {
   margin: 0 auto;
   border-radius: 250px;
   border: 5px solid #434746;
-  background: #3b3d3c;
+  -webkit-transition: all 0.2s ease-in;
   display: -webkit-box;
   -webkit-box-orient: horizontal;
   -webkit-box-pack: center;
@@ -445,4 +448,48 @@ body .ctn .beat-part .scale-area .scale:before {
 }
 body .ctn .beat-part .scale-area .orange:before {
   background: #fe5d02;
+}
+body .ctn .setting-bpm-part {
+  text-align: center;
+  height: 100%;
+  margin-top: 10px;
+}
+body .ctn .setting-bpm-part p {
+  color: #ddd;
+}
+body .ctn .setting-bpm-part .tape-area {
+  text-align: center;
+  align-items: center;
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: center;
+  margin-top: 25px;
+}
+body .ctn .setting-bpm-part .tape-area .tape {
+  width: 20px;
+  height: 100px;
+  background: #fff;
+  position: relative;
+}
+body .ctn .setting-bpm-part .tape-area .tape:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 100px;
+  height: 5px;
+  margin-left: -40px;
+  background: #fe5d02;
+}
+body .ctn .setting-bpm-part .tape-area .tape .ring {
+  display: block;
+  width: 60px;
+  height: 60px;
+  border-radius: 100px;
+  border: 5px solid #fff;
+  left: -20px;
+  bottom: -58px;
+  position: absolute;
+}
+body .ctn .hide {
+  display: none;
 }
