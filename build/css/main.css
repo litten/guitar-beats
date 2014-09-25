@@ -283,6 +283,21 @@ input[type=button] {
 .clearfix {
   zoom: 1;
 }
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div,
+td,
+span,
+em {
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: default;
+}
 .rotate-0 {
   -webkit-transform: rotate(0deg);
 }
@@ -333,8 +348,6 @@ body .ctn .beat-and-note {
 }
 body .ctn .beat-and-note p {
   font-size: 28px;
-  -webkit-user-select: none;
-  user-select: none;
 }
 body .ctn .main {
   width: 100%;
@@ -495,6 +508,7 @@ body .ctn .setting-bpm-part .tape-area .tape .ring {
   left: -20px;
   bottom: -58px;
   position: absolute;
+  cursor: move;
 }
 body .ctn .hide {
   display: none;

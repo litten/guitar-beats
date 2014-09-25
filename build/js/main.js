@@ -19,6 +19,9 @@ var Main = (function() {
 
     var _timeout;
 
+    //是否支持触屏
+    var _touchEvent = "ontouchend" in document ? "touchend" : "click";
+
     //不会变动的dom
     var $point = $(".point");
     var $btnStatus = $(".btn-status");
@@ -111,7 +114,7 @@ var Main = (function() {
     var bind = function() {
 
         //开始or暂停按钮点击
-        $point.bind("touchend", function(e) {
+        $point.bind(_touchEvent, function(e) {
             var $target = $(this);
             if (_isPause) {
                 _timeout = setInterval(toRotate, 30000 / _bpm * 4 / _note);
@@ -124,7 +127,7 @@ var Main = (function() {
         });
 
         //设置bpm
-        $bpmPart.bind("touchend", function(e) {
+        $bpmPart.bind(_touchEvent, function(e) {
             if (_isSettingBpm) {
                 $settingBpmPart.addClass("hide");
                 $beatAndNote.removeClass("hide");
@@ -141,7 +144,31 @@ var Main = (function() {
             _isSettingBpm = !_isSettingBpm;
         });
 
-        //ring拖动
+
+        //点击更改节拍
+        $beatVal.bind(_touchEvent, function(e){
+        	var curVal = parseInt($(this).html());
+        	var newVal = curVal+1;
+        	if(newVal > _note){
+        		newVal = 2;
+        	}
+        	_beat = newVal;
+        	$(this).html(newVal);
+        	reset();
+        });
+
+        $noteVal.bind(_touchEvent, function(e){
+        	var curVal = parseInt($(this).html());
+        	var newVal = curVal * 2;
+        	if(newVal > 16){
+        		newVal = 4;
+        	}
+        	_note = newVal;
+        	$(this).html(newVal);
+        	reset();
+        });
+
+        //ring拖动 - 
         $ring.bind("touchmove", function(e) {
             var offY = e.targetTouches[0].pageY;
             if (offY < 200) {
@@ -150,7 +177,6 @@ var Main = (function() {
                 offY = 600;
             }
             console.log(offY);
-
             //offY 200-600转换到30-240， 次方计算
             _bpm = parseInt(Math.pow(offY - 200, 2)/761.90 + 30);
 
@@ -166,31 +192,38 @@ var Main = (function() {
             });
         });
 
-        $ring.bind("touchstart", function(e) {
-            console.log(e.targetTouches[0].pageY);
-        });
+        var isMouseDown = false;
+        $ring.bind("mousedown", function(e) {
+        	isMouseDown = true;
+        })
+        
+        $settingBpmPart.bind("mousemove", function(e) {
+        	if(isMouseDown){
+        		var offY = e.clientY;
+	            if (offY < 200) {
+	                offY = 200;
+	            } else if (offY > 600) {
+	                offY = 600;
+	            }
+	            console.log(offY);
+	            //offY 200-600转换到30-240， 次方计算
+	            _bpm = parseInt(Math.pow(offY - 200, 2)/761.90 + 30);
 
-        //点击更改节拍
-        $beatVal.bind("touchend", function(e){
-        	var curVal = parseInt($(this).html());
-        	var newVal = curVal+1;
-        	if(newVal > _note){
-        		newVal = 2;
-        	}
-        	_beat = newVal;
-        	$(this).html(newVal);
-        	reset();
-        });
+	            if (_bpm < 30) {
+	                _bpm = 30;
+	            } else if (_bpm > 240) {
+	                _bpm = 240;
+	            }
 
-        $noteVal.bind("touchend", function(e){
-        	var curVal = parseInt($(this).html());
-        	var newVal = curVal * 2;
-        	if(newVal > 16){
-        		newVal = 4;
+	            $bpmWording.html(_bpm);
+	            $tape.css({
+	                "height": offY - 180
+	            });
         	}
-        	_note = newVal;
-        	$(this).html(newVal);
-        	reset();
+        })
+
+        $(window).bind("mouseup", function(e) {
+        	isMouseDown = false;
         });
     }
 

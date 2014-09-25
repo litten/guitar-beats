@@ -132,6 +132,12 @@ input[type=button] {width: auto; overflow: visible;}
 .clearfix:after { clear: both; }  
 .clearfix { zoom: 1; }  
 
+h1,h2,h3,h4,h5,h6,p,div,td,span,em{
+	-webkit-user-select: none; 
+	user-select: none;
+	cursor: default;
+}
+
 .rotate-0{
 	-webkit-transform: rotate(0deg);
 }
@@ -178,8 +184,6 @@ body{
 			width: 100%;
 			p{
 				font-size: 28px;
-				-webkit-user-select: none; 
-				user-select: none;
 			}
 		}
 		.main{
@@ -343,6 +347,7 @@ body{
 						left: -20px;
 						bottom: -58px;
 						position: absolute;
+						cursor: move;
 					}
 				}
 			}
