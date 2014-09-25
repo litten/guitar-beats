@@ -1,0 +1,25 @@
+{
+  "name": "Guitar-Beats 1.0",
+  "main": "index.html",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/litten/guitar-beats.git"
+  },
+  "author": "Litten",
+  "email": "litten225@qq.com",
+  "license": "MIT",
+  "webkit": {
+    "plugin": true
+  },
+  "window": {
+    "icon": "icon.png",
+    "toolbar": false,
+    "width": 350,
+    "min_width": 350,
+    "height": 600,
+    "min_height": 600,
+    "resizable": true
+  },
+  "node-remote" : "<local>"
+}

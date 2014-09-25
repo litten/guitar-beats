@@ -94,9 +94,9 @@ var Main = (function() {
 	            setTimeout(function() {
 	                $circleOut.removeClass("bg-orange");
 	            }, 200);
-	            playAudio("audio/1.mp3");
+	            playAudio("audio/1.ogg");
 	        }else{
-	        	playAudio("audio/2.mp3");
+	        	playAudio("audio/2.ogg");
 	        }
 	        //单摆运动
 	        $pendulum.css({
@@ -227,9 +227,32 @@ var Main = (function() {
         });
     }
 
+
+    //nw模块
+    var Nw = (function(){
+    	return {
+    		init: function(){
+    			var gui = require('nw.gui');
+		    	var win = gui.Window.get();
+    			win.on('minimize', function () {
+    				//一个我不知道的nw bug，最小化窗口后计时器变慢，只能不播放声音
+    				reset();
+			    });
+
+			    win.on('restore', function () {
+			    	//另一个我也不知道的nw bug…恢复窗口时大小改变，只能强行再设置
+    				win.resizeTo(350, 600);
+			    });
+    		}
+    	}
+    })();
+
     return {
         init: function() {
             bind();
+            if(typeof require === 'function'){
+            	Nw.init();
+            }
         }
     }
 })();
